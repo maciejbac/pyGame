@@ -2,10 +2,10 @@ import pygame
 
 running = True
 pygame.display.set_caption('Ball game')
-(width, heigth) = (300, 300)
+(width, height) = (300, 300)
 background_color = (120, 160, 250)
 
-screen = pygame.display.set_mode((width, heigth))
+screen = pygame.display.set_mode((width, height))
 screen.fill(background_color)
 
 pygame.draw.circle(screen, (0, 0, 255), (150, 50), 15, 1)
