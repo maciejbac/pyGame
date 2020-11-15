@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 
 BLUE = (0, 0, 255)
 RED = (255, 0, 0)
@@ -16,13 +17,18 @@ class Particle:
 		self.size = size
 		self.colour = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 		self.thickness = 50
+		self.speed = 0.01
+		self.angle = 0
 
 	def display(self):
 		pygame.draw.circle(screen, self.colour, (self.x, self.y), self.size, self.thickness)
 
+	def move(self):
+		self.x += math.sin(self.angle) * self.speed
+		self.y -= math.cos(self.angle) * self.speed
+
 
 screen = pygame.display.set_mode((width, height))
-screen.fill(background_color)
 
 particle_count = 10
 my_particles = []
@@ -33,12 +39,14 @@ for n in range(particle_count):
 	y = random.randint(size, height - size)
 	my_particles.append(Particle(x, y, size))
 
-for particle in my_particles:
-	particle.display()
-
-pygame.display.flip()
-
 while running:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			running = False
+
+	screen.fill(background_color)
+	for particle in my_particles:
+		particle.move()
+		particle.display()
+
+	pygame.display.flip()
