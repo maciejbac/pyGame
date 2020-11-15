@@ -10,11 +10,11 @@ background_color = (120, 160, 250)
 
 
 class Particle:
-	def __init__(self, x, y, size, colour):
+	def __init__(self, x, y, size):
 		self.x = x
 		self.y = y
 		self.size = size
-		self.colour = colour
+		self.colour = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 		self.thickness = 50
 
 	def display(self):
@@ -31,7 +31,7 @@ for n in range(particle_count):
 	size = random.randint(10, 20)
 	x = random.randint(size, width - size)
 	y = random.randint(size, height - size)
-	my_particles.append(Particle(x, y, size, (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))))
+	my_particles.append(Particle(x, y, size))
 
 for particle in my_particles:
 	particle.display()
