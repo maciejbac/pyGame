@@ -1,4 +1,5 @@
 import pygame
+import random
 
 BLUE = (0, 0, 255)
 RED = (255, 0, 0)
@@ -23,11 +24,17 @@ class Particle:
 screen = pygame.display.set_mode((width, height))
 screen.fill(background_color)
 
-particle = Particle(150, 50, 15, BLUE)
-particle.display()
+particle_count = 10
+my_particles = []
 
-particle2 = Particle(200, 50, 15, RED)
-particle2.display()
+for n in range(particle_count):
+    size = random.randint(10, 20)
+    x = random.randint(size, width - size)
+    y = random.randint(size, height - size)
+    my_particles.append(Particle(x, y, size, BLUE))
+
+for particle in my_particles:
+    particle.display()
 
 pygame.display.flip()
 
