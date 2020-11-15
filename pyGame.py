@@ -15,7 +15,7 @@ class Particle:
         self.y = y
         self.size = size
         self.colour = colour
-        self.thickness = 1
+        self.thickness = 50
 
     def display(self):
         pygame.draw.circle(screen, self.colour, (self.x, self.y), self.size, self.thickness)
@@ -31,7 +31,7 @@ for n in range(particle_count):
     size = random.randint(10, 20)
     x = random.randint(size, width - size)
     y = random.randint(size, height - size)
-    my_particles.append(Particle(x, y, size, BLUE))
+    my_particles.append(Particle(x, y, size, (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))))
 
 for particle in my_particles:
     particle.display()
