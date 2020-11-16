@@ -15,8 +15,10 @@ class Particle:
 		self.x = x
 		self.y = y
 		self.size = size
+		
 		self.colour = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 		self.thickness = 50
+
 		self.speed = 0.01
 		self.angle = 0
 
