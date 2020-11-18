@@ -43,7 +43,11 @@ for n in range(particle_count):
     particle_size = random.randint(10, 20)
     particle_x = random.randint(particle_size, width - particle_size)
     particle_y = random.randint(particle_size, height - particle_size)
-    my_particles.append(Particle(particle_x, particle_y, particle_size))
+
+    particle = Particle(particle_x, particle_y, particle_size)
+    particle.speed = random.random()
+    particle.angle = random.uniform(0, math.pi * 2)
+    my_particles.append(particle)
 
 while running:
     for event in pygame.event.get():
