@@ -18,13 +18,16 @@ class Particle:
         self.size = size
 
         self.colour = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-        self.thickness = 50
+        self.thickness = 1
 
         self.speed = 0.01
         self.angle = math.pi / 2
 
     def display(self):
-        pygame.draw.circle(screen, self.colour, (self.x, self.y), self.size, self.thickness)
+
+        # pygame.draw.circle(screen, self.colour, (self.x, self.y), self.size, self.thickness)
+
+        pygame.draw.circle(screen, self.colour, (int(self.x), int(self.y)), self.size, self.thickness)
 
     def move(self):
         self.x += math.sin(self.angle) * self.speed
