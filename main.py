@@ -5,13 +5,19 @@ import pygame
 import random
 import math
 
-# setting initial variables
+# setting initial variables for the window
 BLUE = (0, 0, 255)
 RED = (255, 0, 0)
 running = True
 (width, height) = (600, 600)
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
+particle_count = 100
+
+# Initialize the screen object
+screen = pygame.display.set_mode((width, height))
+# Initialize empty particle array
+my_particles = []
 
 
 class Particle:
@@ -56,13 +62,6 @@ class Particle:
             self.y = 2 * self.size - self.y
             self.angle = math.pi - self.angle
 
-
-# Initialize the screen object, this could probably be moved higher up before Particle class definition
-screen = pygame.display.set_mode((width, height))
-particle_count = 10
-
-# Initialize empty particle array
-my_particles = []
 
 # Create a bunch of Particle objects using random values to populate the screen
 for n in range(particle_count):
