@@ -21,7 +21,7 @@ class Particle:
         self.thickness = 50
 
         self.speed = 0.01
-        self.angle = 0
+        self.angle = math.pi / 2
 
     def display(self):
         pygame.draw.circle(screen, self.colour, (self.x, self.y), self.size, self.thickness)
@@ -37,10 +37,10 @@ particle_count = 10
 my_particles = []
 
 for n in range(particle_count):
-    size = random.randint(10, 20)
-    x = random.randint(size, width - size)
-    y = random.randint(size, height - size)
-    my_particles.append(Particle(x, y, size))
+    particle_size = random.randint(10, 20)
+    particle_x = random.randint(particle_size, width - particle_size)
+    particle_y = random.randint(particle_size, height - particle_size)
+    my_particles.append(Particle(particle_x, particle_y, particle_size))
 
 while running:
     for event in pygame.event.get():
