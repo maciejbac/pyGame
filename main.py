@@ -63,6 +63,11 @@ class Particle:
             self.angle = math.pi - self.angle
 
 
+def add_vectors(angle1, length1, angle2, length2):
+    x = math.sin(angle1) * length1 + math.sin(angle2) * length2
+    y = math.cos(angle1) * length1 + math.cos(angle2) * length2
+
+
 # Create a bunch of Particle objects using random values to populate the screen
 for n in range(particle_count):
     particle_size = random.randint(10, 20)
