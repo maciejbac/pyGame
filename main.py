@@ -69,7 +69,7 @@ def add_vectors(angle1, length1, angle2, length2):
     y = math.cos(angle1) * length1 + math.cos(angle2) * length2
 
 
-# Create a bunch of Particle objects using random values to populate the screen
+# Create a number of Particle objects using random values to populate the screen
 for n in range(particle_count):
     particle_size = random.randint(10, 20)
     particle_x = random.randint(particle_size, width - particle_size)
