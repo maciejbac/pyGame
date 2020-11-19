@@ -16,6 +16,7 @@ particle_count = 100
 
 # Initialize the screen object
 screen = pygame.display.set_mode((width, height))
+
 # Initialize empty particle array
 my_particles = []
 
@@ -35,17 +36,17 @@ class Particle:
         self.speed = 0.01
         self.angle = math.pi / 2
 
+    # Call pygame package to draw circle, pass values stored in the current (self) Particle object as parameters
     def display(self):
-        # Call pygame package to draw circle, pass values stored in the current (self) Particle object as parameters
         pygame.draw.circle(screen, self.colour, (int(self.x), int(self.y)), self.size, self.thickness)
 
+    # Update the x and y position based on the angle and speed of the Particle object
     def move(self):
-        # Update the x and y position based on the angle and speed of the Particle object
         self.x += math.sin(self.angle) * self.speed
         self.y -= math.cos(self.angle) * self.speed
 
+    # if statements that detect and respond to collisions. Each if statement handles 1 out of 4 sides of the window.
     def bounce(self):
-        # if statements that detect and respond to collisions. Each if statement handles 1 out of 4 sides of the window.
         if self.x > width - self.size:
             self.x = 2 * (width - self.size) - self.x
             self.angle = - self.angle
@@ -90,11 +91,8 @@ while running:
 
     # Iterate through all particle objects
     for particle in my_particles:
-        # Update position
         particle.move()
-        # Handle collisions
         particle.bounce()
-        # Re-draw the scene
         particle.display()
 
     # Swap the frame buffer
