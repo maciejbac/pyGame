@@ -26,20 +26,20 @@ my_particles = []
 
 class Particle:
     # Constructor function that assigns parameters to internal values of the Particle object
-    def __init__(self, x, y, size):
+    def __init__(self, x, y, size, mass=1):
         self.x = x
         self.y = y
         self.size = size
 
+        self.mass = mass
+
         # TEMPORARY: set random colour and thickness, TODO: add support for manual colour selection
         self.colour = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-        self.thickness = 30
+        self.thickness = 40
 
         # set default speed and angle, can be changed when creating Particle object
         self.speed = 0.01
         self.angle = math.pi / 2
-
-
 
     # Call pygame package to draw circle, pass values stored in the current (self) Particle object as parameters
     def display(self):
@@ -100,12 +100,15 @@ def collide(p1, p2):
     col_dx = p1.x - p2.x
     col_dy = p1.y - p2.y
     distance = math.hypot(col_dx, col_dy)
+
     if distance < p1.size + p2.size:
-        print('BANG!')
         tangent = math.atan2(col_dy, col_dx)
-        p1.angle = 2 * tangent - p1.angle
-        p2.angle = 2 * tangent - p2.angle
-        (p1.speed, p2.speed) = (p2.speed, p1.speed)
+        angle = math.atan2(col_dy, col_dx) + 0.5 * math.pi
+        total_mass = p1.mass + p2.mass
+        (p1.angle, p1.speed) = add_vectors(*(p1.angle, p1.speed * (p1.mass - p2.mass) / total_mass),
+                                           *(angle, 2 * p2.speed * p2.mass / total_mass))
+        (p2.angle, p2.speed) = add_vectors(*(p2.angle, p2.speed * (p2.mass - p1.mass) / total_mass),
+                                           *(angle + math.pi, 2 * p1.speed * p1.mass / total_mass))
         p1.speed *= elasticity
         p2.speed *= elasticity
 
@@ -118,11 +121,15 @@ def collide(p1, p2):
 
 # Create a number of Particle objects using random values to populate the screen
 for n in range(particle_count):
-    particle_size = random.randint(10, 20)
+    particle_size = random.randint(10, 40)
+    particle_density = 1
+
     particle_x = random.randint(particle_size, width - particle_size)
     particle_y = random.randint(particle_size, height - particle_size)
 
-    particle = Particle(particle_x, particle_y, particle_size)
+    particle = Particle(particle_x, particle_y, particle_size, particle_density * particle_size ** 2)
+    # particle.colour = (200 - particle_density * 10, 200 - particle_density * 10, 255)
+
     particle.speed = random.random()
     particle.angle = random.uniform(0, math.pi * 2)
     my_particles.append(particle)
