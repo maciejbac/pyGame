@@ -12,8 +12,8 @@ running = True
 (width, height) = (800, 600)
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
-particle_count = 40
-gravity = (math.pi, 0.03)
+particle_count = 25
+gravity = (math.pi, 0.02)
 drag = 0.999
 elasticity = 0.85
 particle_max_size = 20
@@ -113,10 +113,11 @@ def collide(p1, p2):
         p2.speed *= elasticity
 
         angle = 0.5 * math.pi + tangent
-        p1.x += math.sin(angle)
-        p1.y -= math.cos(angle)
-        p2.x -= math.sin(angle)
-        p2.y += math.cos(angle)
+        overlap = 0.5 * (p1.size + p2.size - distance + 1)
+        p1.x += math.sin(angle) * overlap
+        p1.y -= math.cos(angle) * overlap
+        p2.x -= math.sin(angle) * overlap
+        p2.y += math.cos(angle) * overlap
 
 
 # Create a number of Particle objects using random values to populate the screen
