@@ -102,6 +102,9 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            (mouseX, mouseY) = pygame.mouse.get_pos()
+            print(mouseX, mouseY)
 
     # Reset the scene
     screen.fill(background_color)
