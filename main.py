@@ -46,6 +46,7 @@ class Particle:
         self.x += math.sin(self.angle) * self.speed
         self.y -= math.cos(self.angle) * self.speed
 
+        # Gravity function that adds a pre-defined gravity vector to the existing movement vector of the particle
         (self.angle, self.speed) = add_vectors(self.angle, self.speed, *gravity)
 
     # if statements that detect and respond to collisions. Each if statement handles 1 out of 4 sides of the window.
