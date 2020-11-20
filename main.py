@@ -12,10 +12,10 @@ running = True
 (width, height) = (800, 600)
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
-particle_count = 10
+particle_count = 20
 gravity = (math.pi, 0.03)
 drag = 0.999
-elasticity = 0.75
+elasticity = 0.85
 
 # Initialize the screen object
 screen = pygame.display.set_mode((width, height))
@@ -38,6 +38,8 @@ class Particle:
         # set default speed and angle, can be changed when creating Particle object
         self.speed = 0.01
         self.angle = math.pi / 2
+
+
 
     # Call pygame package to draw circle, pass values stored in the current (self) Particle object as parameters
     def display(self):
@@ -93,6 +95,27 @@ def find_particle(particles, x, y):
     return None
 
 
+# Collision detection function
+def collide(p1, p2):
+    col_dx = p1.x - p2.x
+    col_dy = p1.y - p2.y
+    distance = math.hypot(col_dx, col_dy)
+    if distance < p1.size + p2.size:
+        print('BANG!')
+        tangent = math.atan2(col_dy, col_dx)
+        p1.angle = 2 * tangent - p1.angle
+        p2.angle = 2 * tangent - p2.angle
+        (p1.speed, p2.speed) = (p2.speed, p1.speed)
+        p1.speed *= elasticity
+        p2.speed *= elasticity
+
+        angle = 0.5 * math.pi + tangent
+        p1.x += math.sin(angle)
+        p1.y -= math.cos(angle)
+        p2.x -= math.sin(angle)
+        p2.y += math.cos(angle)
+
+
 # Create a number of Particle objects using random values to populate the screen
 for n in range(particle_count):
     particle_size = random.randint(10, 20)
@@ -122,17 +145,22 @@ while running:
     screen.fill(background_color)
 
     # Iterate through all particle objects
-    for particle in my_particles:
+    for i, particle in enumerate(my_particles):
         if particle != selected_particle:
             particle.move()
             particle.bounce()
-        particle.display()
+
         if selected_particle:
             (mouseX, mouseY) = pygame.mouse.get_pos()
             dx = mouseX - selected_particle.x
             dy = mouseY - selected_particle.y
             selected_particle.angle = math.atan2(dy, dx) - 0.5 * math.pi
             selected_particle.speed = math.hypot(dx, dy) * 0.1
+
+        particle.display()
+
+        for particle2 in my_particles[i + 1:]:
+            collide(particle, particle2)
 
     # Swap the frame buffer
     pygame.display.flip()
