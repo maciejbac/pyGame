@@ -13,7 +13,9 @@ running = True
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
 particle_count = 100
-gravity = (math.pi, 0.01)
+gravity = (math.pi, 0.03)
+drag = 0.999
+elasticity = 0.75
 
 # Initialize the screen object
 screen = pygame.display.set_mode((width, height))
@@ -31,7 +33,7 @@ class Particle:
 
         # TEMPORARY: set random colour and thickness, TODO: add support for manual colour selection
         self.colour = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-        self.thickness = 1
+        self.thickness = 30
 
         # set default speed and angle, can be changed when creating Particle object
         self.speed = 0.01
@@ -49,23 +51,30 @@ class Particle:
         # Gravity function that adds a pre-defined gravity vector to the existing movement vector of the particle
         (self.angle, self.speed) = add_vectors(self.angle, self.speed, *gravity)
 
+        # Multiply particle's speed by the drag to introduce air drag
+        self.speed *= drag
+
     # if statements that detect and respond to collisions. Each if statement handles 1 out of 4 sides of the window.
     def bounce(self):
         if self.x > width - self.size:
             self.x = 2 * (width - self.size) - self.x
             self.angle = - self.angle
+            self.speed *= elasticity
 
         elif self.x < self.size:
             self.x = 2 * self.size - self.x
             self.angle = - self.angle
+            self.speed *= elasticity
 
         if self.y > height - self.size:
             self.y = 2 * (height - self.size) - self.y
             self.angle = math.pi - self.angle
+            self.speed *= elasticity
 
         elif self.y < self.size:
             self.y = 2 * self.size - self.y
             self.angle = math.pi - self.angle
+            self.speed *= elasticity
 
 
 def add_vectors(angle1, length1, angle2, length2):
