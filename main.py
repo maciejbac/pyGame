@@ -12,7 +12,7 @@ running = True
 (width, height) = (800, 600)
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
-particle_count = 100
+particle_count = 10
 gravity = (math.pi, 0.03)
 drag = 0.999
 elasticity = 0.75
@@ -86,6 +86,13 @@ def add_vectors(angle1, length1, angle2, length2):
     return angle, length
 
 
+def find_particle(particles, x, y):
+    for p in particles:
+        if math.hypot(p.x - x, p.y - y) <= p.size:
+            return p
+    return None
+
+
 # Create a number of Particle objects using random values to populate the screen
 for n in range(particle_count):
     particle_size = random.randint(10, 20)
@@ -97,24 +104,35 @@ for n in range(particle_count):
     particle.angle = random.uniform(0, math.pi * 2)
     my_particles.append(particle)
 
+selected_particle = None
 # Main loop of the program
 while running:
+    # Listen for Quit message from the X button on the window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        # Detect mouse click, if the user clicked on a particle
         if event.type == pygame.MOUSEBUTTONDOWN:
             (mouseX, mouseY) = pygame.mouse.get_pos()
-            print(mouseX, mouseY)
+            selected_particle = find_particle(my_particles, mouseX, mouseY)
+        elif event.type == pygame.MOUSEBUTTONUP:
+            selected_particle = None
 
     # Reset the scene
     screen.fill(background_color)
 
     # Iterate through all particle objects
     for particle in my_particles:
-        particle.move()
-        particle.bounce()
+        if particle != selected_particle:
+            particle.move()
+            particle.bounce()
         particle.display()
+        if selected_particle:
+            (mouseX, mouseY) = pygame.mouse.get_pos()
+            dx = mouseX - selected_particle.x
+            dy = mouseY - selected_particle.y
+            selected_particle.angle = math.atan2(dy, dx) - 0.5 * math.pi
+            selected_particle.speed = math.hypot(dx, dy) * 0.1
 
     # Swap the frame buffer
     pygame.display.flip()
-
