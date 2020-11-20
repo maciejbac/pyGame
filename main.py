@@ -19,7 +19,7 @@ elasticity = 0.85
 particle_max_size = 20
 
 # Initialize the screen object
-screen = pygame.display.set_mode((width, height))
+screen = pygame.display.set_mode((width, height + 50))
 
 # Initialize empty particle array
 my_particles = []
@@ -170,4 +170,5 @@ while running:
             collide(particle, particle2)
 
     # Swap the frame buffer
+    pygame.draw.line(screen, (100, 100, 255), (0, height), (width, height))
     pygame.display.flip()
