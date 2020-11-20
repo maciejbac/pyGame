@@ -9,7 +9,7 @@ import math
 BLUE = (0, 0, 255)
 RED = (255, 0, 0)
 running = True
-(width, height) = (600, 600)
+(width, height) = (800, 600)
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
 particle_count = 100
