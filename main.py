@@ -13,6 +13,7 @@ running = True
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
 particle_count = 100
+gravity = (math.pi, 0.01)
 
 # Initialize the screen object
 screen = pygame.display.set_mode((width, height))
@@ -45,6 +46,8 @@ class Particle:
         self.x += math.sin(self.angle) * self.speed
         self.y -= math.cos(self.angle) * self.speed
 
+        (self.angle, self.speed) = add_vectors(self.angle, self.speed, *gravity)
+
     # if statements that detect and respond to collisions. Each if statement handles 1 out of 4 sides of the window.
     def bounce(self):
         if self.x > width - self.size:
@@ -67,6 +70,10 @@ class Particle:
 def add_vectors(angle1, length1, angle2, length2):
     x = math.sin(angle1) * length1 + math.sin(angle2) * length2
     y = math.cos(angle1) * length1 + math.cos(angle2) * length2
+
+    length = math.hypot(x, y)
+    angle = 0.5 * math.pi - math.atan2(y, x)
+    return angle, length
 
 
 # Create a number of Particle objects using random values to populate the screen
