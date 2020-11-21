@@ -123,7 +123,7 @@ def collide(p1, p2):
 # Create a number of Particle objects using random values to populate the screen
 for n in range(particle_count):
     particle_size = random.randint(10, particle_max_size)
-    particle_density = 1
+    particle_density = 1.00
 
     particle_x = random.randint(particle_size, width - particle_size)
     particle_y = random.randint(particle_size, height - particle_size)
