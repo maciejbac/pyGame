@@ -15,7 +15,7 @@ running = True
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
 particle_count = 25
-gravity = 'off'
+gravity_on = False
 gravity = (math.pi, 0.02)
 mass_of_air = 0.1
 elasticity = 0.95
@@ -36,7 +36,7 @@ class Particle:
         self.size = size
         self.mass = mass
 
-        # TEMPORARY: set random colour and thickness, TODO: add support for manual colour selection
+        # TEMPORARY: set random colour and thickness
         self.colour = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
         self.thickness = 40
 
@@ -55,7 +55,7 @@ class Particle:
         self.x += math.sin(self.angle) * self.speed
         self.y -= math.cos(self.angle) * self.speed
 
-        if gravity == 'on':
+        if gravity_on:
             # Gravity function that adds a pre-defined gravity vector to the existing movement vector of the particle
             (self.angle, self.speed) = add_vectors(self.angle, self.speed, *gravity)
 
@@ -172,6 +172,9 @@ while running:
             dy = mouseY - selected_particle.y
             selected_particle.angle = math.atan2(dy, dx) - 0.5 * math.pi
             selected_particle.speed = math.hypot(dx, dy) * 0.1
+            # Draw dot when a particle is selected
+            pygame.draw.line(screen, (0, 0, 0), (mouseX, mouseY), (selected_particle.x, selected_particle.y))
+            pygame.draw.circle(screen, (0, 0, 0), (mouseX, mouseY), 5, 5)
 
         particle.display()
 
