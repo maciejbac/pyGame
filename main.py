@@ -14,8 +14,8 @@ background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
 particle_count = 25
 gravity = (math.pi, 0.02)
-drag = 0.999
-elasticity = 0.85
+mass_of_air = 0.2
+elasticity = 0.95
 particle_max_size = 20
 
 # Initialize the screen object
@@ -41,6 +41,8 @@ class Particle:
         self.speed = 0.01
         self.angle = math.pi / 2
 
+        self.drag = (self.mass / (self.mass + mass_of_air)) ** self.size
+
     # Call pygame package to draw circle, pass values stored in the current (self) Particle object as parameters
     def display(self):
         pygame.draw.circle(screen, self.colour, (int(self.x), int(self.y)), self.size, self.thickness)
@@ -54,7 +56,7 @@ class Particle:
         (self.angle, self.speed) = add_vectors(self.angle, self.speed, *gravity)
 
         # Multiply particle's speed by the drag to introduce air drag
-        self.speed *= drag
+        self.speed *= self.drag
 
     # if statements that detect and respond to collisions. Each if statement handles 1 out of 4 sides of the window.
     def bounce(self):
