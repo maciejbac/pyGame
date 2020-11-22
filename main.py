@@ -18,8 +18,8 @@ particle_count = 25
 gravity_on = False
 gravity = (math.pi, 0.02)
 mass_of_air = 0.1
-elasticity = 0.95
-particle_max_size = 20
+elasticity = 0.75
+particle_max_size = 30
 
 # Initialize the screen object
 screen = pygame.display.set_mode((window_width, window_height))
@@ -108,6 +108,8 @@ def collide(p1, p2):
     col_dy = p1.y - p2.y
     distance = math.hypot(col_dx, col_dy)
 
+    # Collision handling requires refactoring as it doesn't currently take into consideration the angle at which both
+    # particles collide
     if distance < p1.size + p2.size:
         tangent = math.atan2(col_dy, col_dx)
         angle = math.atan2(col_dy, col_dx) + 0.5 * math.pi
@@ -172,11 +174,13 @@ while running:
             dy = mouseY - selected_particle.y
             selected_particle.angle = math.atan2(dy, dx) - 0.5 * math.pi
             selected_particle.speed = math.hypot(dx, dy) * 0.1
-            # Draw dot when a particle is selected
+            # Draw line between mouse pointer and the particle when selected
             pygame.draw.line(screen, (0, 0, 0), (mouseX, mouseY), (selected_particle.x, selected_particle.y))
+
             pygame.draw.line(screen, (255, 255, 255), (selected_particle.x, selected_particle.y),
                              (selected_particle.x + (selected_particle.x - mouseX), selected_particle.y +
                               (selected_particle.y - mouseY)))
+
             pygame.draw.circle(screen, (0, 0, 0), (mouseX, mouseY), 5, 5)
 
         particle.display()
