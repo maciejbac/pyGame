@@ -10,17 +10,19 @@ BLUE = (0, 0, 255)
 RED = (255, 0, 0)
 running = True
 (window_width, window_height) = (800, 600)
+(game_width, game_height) = (window_width - 100, window_height - 100)
+
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
 particle_count = 25
 gravity = 'off'
 gravity = (math.pi, 0.02)
-mass_of_air = 0.2
+mass_of_air = 0.1
 elasticity = 0.95
 particle_max_size = 20
 
 # Initialize the screen object
-screen = pygame.display.set_mode((window_width, window_height + 50))
+screen = pygame.display.set_mode((window_width, window_height))
 
 # Initialize empty particle array
 my_particles = []
@@ -62,8 +64,8 @@ class Particle:
 
     # if statements that detect and respond to collisions. Each if statement handles 1 out of 4 sides of the window.
     def bounce(self):
-        if self.x > window_width - self.size:
-            self.x = 2 * (window_width - self.size) - self.x
+        if self.x > game_width - self.size:
+            self.x = 2 * (game_width - self.size) - self.x
             self.angle = - self.angle
             self.speed *= elasticity
 
@@ -72,8 +74,8 @@ class Particle:
             self.angle = - self.angle
             self.speed *= elasticity
 
-        if self.y > window_height - self.size:
-            self.y = 2 * (window_height - self.size) - self.y
+        if self.y > game_height - self.size:
+            self.y = 2 * (game_height - self.size) - self.y
             self.angle = math.pi - self.angle
             self.speed *= elasticity
 
@@ -130,8 +132,8 @@ for n in range(particle_count):
     particle_size = random.randint(10, particle_max_size)
     particle_density = 1.00
 
-    particle_x = random.randint(particle_size, window_width - particle_size)
-    particle_y = random.randint(particle_size, window_height - particle_size)
+    particle_x = random.randint(particle_size, game_width - particle_size)
+    particle_y = random.randint(particle_size, game_height - particle_size)
 
     particle = Particle(particle_x, particle_y, particle_size, particle_density * particle_size ** 2)
     # particle.colour = (200 - particle_density * 10, 200 - particle_density * 10, 255)
@@ -176,5 +178,4 @@ while running:
             collide(particle, particle2)
 
     # Swap the frame buffer
-    pygame.draw.line(screen, (100, 100, 255), (0, window_height), (window_width, window_height))
     pygame.display.flip()
