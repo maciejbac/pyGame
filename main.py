@@ -156,7 +156,6 @@ while running:
 
         elif event.type == pygame.MOUSEBUTTONUP:
             selected_particle = None
-            my_particles.pop()
 
     # Reset the scene
     screen.fill(background_color)
