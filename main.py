@@ -153,8 +153,10 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             (mouseX, mouseY) = pygame.mouse.get_pos()
             selected_particle = find_particle(my_particles, mouseX, mouseY)
+
         elif event.type == pygame.MOUSEBUTTONUP:
             selected_particle = None
+            my_particles.pop()
 
     # Reset the scene
     screen.fill(background_color)
