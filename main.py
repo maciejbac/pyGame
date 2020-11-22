@@ -174,6 +174,9 @@ while running:
             selected_particle.speed = math.hypot(dx, dy) * 0.1
             # Draw dot when a particle is selected
             pygame.draw.line(screen, (0, 0, 0), (mouseX, mouseY), (selected_particle.x, selected_particle.y))
+            pygame.draw.line(screen, (255, 255, 255), (selected_particle.x, selected_particle.y),
+                             (selected_particle.x + (selected_particle.x - mouseX), selected_particle.y +
+                              (selected_particle.y - mouseY)))
             pygame.draw.circle(screen, (0, 0, 0), (mouseX, mouseY), 5, 5)
 
         particle.display()
