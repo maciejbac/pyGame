@@ -10,7 +10,7 @@ RED = (255, 0, 0)
 running = True
 (window_width, window_height) = (800, 600)
 (game_width, game_height) = (window_width - 100, window_height - 100)
-
+selected_particle = None
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
 particle_count = 25
@@ -128,22 +128,25 @@ def collide(p1, p2):
         p2.y += math.cos(angle) * overlap
 
 
-# Create a number of Particle objects using random values to populate the screen
-for n in range(particle_count):
-    particle_size = random.randint(10, particle_max_size)
-    particle_density = 1.00
+def init_random_particles():
+    # Create a number of Particle objects using random values to populate the screen
+    for n in range(particle_count):
+        particle_size = random.randint(10, particle_max_size)
+        particle_density = 1.00
 
-    particle_x = random.randint(particle_size, game_width - particle_size)
-    particle_y = random.randint(particle_size, game_height - particle_size)
+        particle_x = random.randint(particle_size, game_width - particle_size)
+        particle_y = random.randint(particle_size, game_height - particle_size)
 
-    particle = Particle(particle_x, particle_y, particle_size, particle_density * particle_size ** 2)
-    # particle.colour = (200 - particle_density * 10, 200 - particle_density * 10, 255)
+        new_particle = Particle(particle_x, particle_y, particle_size, particle_density * particle_size ** 2)
+        # particle.colour = (200 - particle_density * 10, 200 - particle_density * 10, 255)
 
-    particle.speed = random.random()
-    particle.angle = random.uniform(0, math.pi * 2)
-    my_particles.append(particle)
+        new_particle.speed = random.random()
+        new_particle.angle = random.uniform(0, math.pi * 2)
+        my_particles.append(new_particle)
 
-selected_particle = None
+
+init_random_particles()
+
 # Main loop of the program
 while running:
     # Listen for Quit message from the X button on the window
