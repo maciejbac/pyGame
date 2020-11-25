@@ -6,7 +6,6 @@ import random
 import math
 
 # setting initial variables for the window
-BLUE = (0, 0, 255)
 RED = (255, 0, 0)
 running = True
 (window_width, window_height) = (800, 600)
