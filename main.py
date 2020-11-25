@@ -37,7 +37,7 @@ class Particle:
 
         # TEMPORARY: set random colour and thickness
         self.colour = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-        self.thickness = 40
+        self.thickness = 50
 
         # set default speed and angle, can be changed when creating Particle object
         self.speed = 0.01
@@ -145,7 +145,22 @@ def init_random_particles():
         my_particles.append(new_particle)
 
 
-init_random_particles()
+def init_test_particles():
+    test_particle1 = Particle(game_width/2, 100, 50, 1.00 * 50 ** 2)
+    test_particle2 = Particle(game_width/2, 300, 10, 1.00 * 10 ** 2)
+
+    test_particle1.speed = 0.0
+    test_particle1.angle = random.uniform(0, math.pi * 2)
+
+    test_particle2.speed = 0.0
+    test_particle2.angle = random.uniform(0, math.pi * 2)
+
+    my_particles.append(test_particle1)
+    my_particles.append(test_particle2)
+
+
+# init_random_particles()
+init_test_particles()
 
 # Main loop of the program
 while running:
