@@ -113,17 +113,21 @@ def collide(p1, p2):
         tangent = math.atan2(col_dy, col_dx)
         angle = math.atan2(col_dy, col_dx) + 0.5 * math.pi
         total_mass = p1.mass + p2.mass
+
         (p1.angle, p1.speed) = add_vectors(*(p1.angle, p1.speed * (p1.mass - p2.mass) / total_mass),
                                            *(angle, 2 * p2.speed * p2.mass / total_mass))
-        (p2.angle, p2.speed) = add_vectors(*(p2.angle, p2.speed * (p2.mass - p1.mass) / total_mass),
+
+        (p2.angle, p2.speed) = add_vectors(*(p1.angle, p2.speed * (p2.mass - p1.mass) / total_mass),
                                            *(angle + math.pi, 2 * p1.speed * p1.mass / total_mass))
+
         p1.speed *= elasticity
         p2.speed *= elasticity
 
-        angle = 0.5 * math.pi + tangent
         overlap = 0.5 * (p1.size + p2.size - distance + 1)
+
         p1.x += math.sin(angle) * overlap
         p1.y -= math.cos(angle) * overlap
+
         p2.x -= math.sin(angle) * overlap
         p2.y += math.cos(angle) * overlap
 
@@ -146,8 +150,8 @@ def init_random_particles():
 
 
 def init_test_particles():
-    test_particle1 = Particle(game_width/2, 100, 50, 1.00 * 50 ** 2)
-    test_particle2 = Particle(game_width/2, 300, 10, 1.00 * 10 ** 2)
+    test_particle1 = Particle(game_width/2, 100, 30, 1.00 * 50 ** 2)
+    test_particle2 = Particle(game_width/2, 200, 30, 1.00 * 10 ** 2)
 
     test_particle1.speed = 0.0
     test_particle1.angle = random.uniform(0, math.pi * 2)
@@ -159,8 +163,8 @@ def init_test_particles():
     my_particles.append(test_particle2)
 
 
-# init_random_particles()
-init_test_particles()
+init_random_particles()
+# init_test_particles()
 
 # Main loop of the program
 while running:
@@ -185,6 +189,11 @@ while running:
             particle.move()
             particle.bounce()
 
+        for particle2 in my_particles[i + 1:]:
+            collide(particle, particle2)
+
+        particle.display()
+
         if selected_particle:
             (mouseX, mouseY) = pygame.mouse.get_pos()
             dx = mouseX - selected_particle.x
@@ -199,11 +208,6 @@ while running:
                               (selected_particle.y - mouseY)))
 
             pygame.draw.circle(screen, (0, 0, 0), (mouseX, mouseY), 5, 5)
-
-        particle.display()
-
-        for particle2 in my_particles[i + 1:]:
-            collide(particle, particle2)
 
     # Swap the frame buffer
     pygame.display.flip()
