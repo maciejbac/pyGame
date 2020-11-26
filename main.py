@@ -13,11 +13,11 @@ running = True
 selected_particle = None
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
-particle_count = 25
+particle_count = 35
 gravity_on = False
 gravity = (math.pi, 0.02)
 mass_of_air = 0.1
-elasticity = 0.75
+elasticity = 0.9
 particle_max_size = 30
 
 # Initialize the screen object
