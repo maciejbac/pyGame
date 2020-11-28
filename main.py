@@ -9,14 +9,14 @@ import math
 RED = (255, 0, 0)
 running = True
 (window_width, window_height) = (800, 600)
-(game_width, game_height) = (window_width - 100, window_height - 100)
+(game_width, game_height) = (window_width, window_height)
 selected_particle = None
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
 particle_count = 35
 gravity_on = False
 gravity = (math.pi, 0.02)
-mass_of_air = 0.1
+mass_of_air = 0.01
 elasticity = 0.9
 particle_max_size = 30
 
