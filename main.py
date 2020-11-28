@@ -9,11 +9,11 @@ import math
 RED = (255, 0, 0)
 running = True
 (window_width, window_height) = (800, 600)
-(game_width, game_height) = (window_width, window_height)
+(game_width, game_height) = (window_width - 100, window_height)
 selected_particle = None
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
-particle_count = 70
+particle_count = 35
 gravity_on = False
 gravity = (math.pi, 0.02)
 mass_of_air = 0.01
@@ -149,8 +149,8 @@ def init_random_particles():
 
 
 def init_test_particles():
-    test_particle1 = Particle(game_width/2, 100, 30, 1.00 * 50 ** 2)
-    test_particle2 = Particle(game_width/2, 200, 30, 1.00 * 10 ** 2)
+    test_particle1 = Particle(game_width / 2, 100, 30, 1.00 * 50 ** 2)
+    test_particle2 = Particle(game_width / 2, 200, 30, 1.00 * 10 ** 2)
 
     test_particle1.speed = 0.0
     test_particle1.angle = random.uniform(0, math.pi * 2)
@@ -162,25 +162,10 @@ def init_test_particles():
     my_particles.append(test_particle2)
 
 
-init_random_particles()
-# init_test_particles()
-
-# Main loop of the program
-while running:
-    # Listen for Quit message from the X button on the window
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        # Detect mouse click, if the user clicked on a particle
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            (mouseX, mouseY) = pygame.mouse.get_pos()
-            selected_particle = find_particle(my_particles, mouseX, mouseY)
-
-        elif event.type == pygame.MOUSEBUTTONUP:
-            selected_particle = None
-
+def draw_game():
     # Reset the scene
     screen.fill(background_color)
+    pygame.draw.line(screen, (0, 0, 0), (game_width, 0), (game_width, game_height))
 
     # Iterate through all particle objects
     for i, particle in enumerate(my_particles):
@@ -210,3 +195,23 @@ while running:
 
     # Swap the frame buffer
     pygame.display.flip()
+
+
+init_random_particles()
+# init_test_particles()
+
+# Main loop of the program
+while running:
+    # Listen for Quit message from the X button on the window
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        # Detect mouse click, if the user clicked on a particle
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            (sel_mouseX, sel_mouseY) = pygame.mouse.get_pos()
+            selected_particle = find_particle(my_particles, sel_mouseX, sel_mouseY)
+        elif event.type == pygame.MOUSEBUTTONUP:
+            selected_particle = None
+
+    draw_game()
