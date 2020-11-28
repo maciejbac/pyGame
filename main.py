@@ -18,7 +18,7 @@ gravity_on = False
 gravity = (math.pi, 0.02)
 mass_of_air = 0.01
 elasticity = 0.9
-particle_max_size = 20
+particle_max_size = 30
 
 # Initialize the screen object
 screen = pygame.display.set_mode((window_width, window_height))
@@ -110,7 +110,6 @@ def collide(p1, p2):
     # Collision handling requires refactoring as it doesn't currently take into consideration the angle at which both
     # particles collide
     if distance < p1.size + p2.size:
-        tangent = math.atan2(col_dy, col_dx)
         angle = math.atan2(col_dy, col_dx) + 0.5 * math.pi
         total_mass = p1.mass + p2.mass
 
