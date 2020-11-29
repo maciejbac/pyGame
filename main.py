@@ -152,6 +152,7 @@ def init_random_particles():
         # particle.colour = (200 - particle_density * 10, 200 - particle_density * 10, 255)
 
         new_particle.speed = random.random()
+        new_particle.speed = 0
         new_particle.angle = random.uniform(0, math.pi * 2)
         my_particles.append(new_particle)
 
@@ -208,8 +209,12 @@ def draw_game():
 
             pygame.draw.circle(screen, (0, 0, 0), (mouseX, mouseY), 5, 5)
 
+            write('V = ' + str(round(math.hypot(dx, dy), 2)), (mouseX + 20, mouseY + 10))
+
         if particle.speed > 0.01:
             counter += 1
+        else:
+            particle.speed = 0
 
         if counter == 0:
             state = 'Still'
