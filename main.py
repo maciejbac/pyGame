@@ -170,7 +170,7 @@ def init_test_particles():
     my_particles.append(test_particle2)
 
 
-def write(text, location, color=(255, 255, 255)):
+def write(text, location, color=(0, 0, 0)):
     screen.blit(font.render(text, True, color), location)
 
 
