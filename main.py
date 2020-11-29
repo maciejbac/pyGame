@@ -2,14 +2,15 @@
 
 # importing required packages
 import pygame
+import pygame.freetype
 import random
 import math
 
 # setting initial variables for the window
 RED = (255, 0, 0)
 running = True
-(window_width, window_height) = (800, 600)
-(game_width, game_height) = (window_width - 100, window_height)
+(window_width, window_height) = (900, 600)
+(game_width, game_height) = (window_width - 200, window_height)
 selected_particle = None
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
@@ -19,9 +20,15 @@ gravity = (math.pi, 0.02)
 mass_of_air = 0.01
 elasticity = 0.9
 particle_max_size = 30
+margin = 5
 
 # Initialize the screen object
 screen = pygame.display.set_mode((window_width, window_height))
+
+# Initialise pygame font
+pygame.freetype.init()
+GAME_FONT = pygame.freetype.SysFont("freesansbold.ttf", 24)
+
 
 # Initialize empty particle array
 my_particles = []
@@ -194,6 +201,10 @@ def draw_game():
             pygame.draw.circle(screen, (0, 0, 0), (mouseX, mouseY), 5, 5)
 
     # Swap the frame buffer
+
+    ball_count = len(my_particles)
+    text_surface, rect = GAME_FONT.render("Ball count: " + str(ball_count), (0, 0, 0))
+    screen.blit(text_surface, (game_width + margin, margin))
     pygame.display.flip()
 
 
