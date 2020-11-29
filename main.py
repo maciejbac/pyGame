@@ -3,6 +3,7 @@
 # importing required packages
 import pygame
 import pygame.freetype
+import pygame.font
 import random
 import math
 
@@ -25,9 +26,9 @@ margin = 5
 # Initialize the screen object
 screen = pygame.display.set_mode((window_width, window_height))
 
-# Initialise pygame font
-pygame.freetype.init()
-GAME_FONT = pygame.freetype.SysFont("freesansbold.ttf", 24)
+# Initialize pygame.font library
+pygame.font.init()
+font = pygame.font.Font(None, 20)
 
 
 # Initialize empty particle array
@@ -169,6 +170,10 @@ def init_test_particles():
     my_particles.append(test_particle2)
 
 
+def write(text, location, color=(255, 255, 255)):
+    screen.blit(font.render(text, True, color), location)
+
+
 def draw_game():
     # Reset the scene
     screen.fill(background_color)
@@ -200,11 +205,11 @@ def draw_game():
 
             pygame.draw.circle(screen, (0, 0, 0), (mouseX, mouseY), 5, 5)
 
-    # Swap the frame buffer
-
+    # Draw text
     ball_count = len(my_particles)
-    text_surface, rect = GAME_FONT.render("Ball count: " + str(ball_count), (0, 0, 0))
-    screen.blit(text_surface, (game_width + margin, margin))
+    write('Ball count: ' + str(ball_count), (game_width + margin, margin))
+
+    # Swap the frame buffer
     pygame.display.flip()
 
 
