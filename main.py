@@ -7,6 +7,7 @@ import pygame.font
 import random
 import math
 
+
 # setting initial variables for the window
 RED = (255, 0, 0)
 running = True
@@ -233,6 +234,7 @@ def draw_game():
 
 init_random_particles()
 # init_test_particles()
+
 
 # Main loop of the program
 while running:
