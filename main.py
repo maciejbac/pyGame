@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 # importing required packages
+from os import lseek
 import pygame
 import pygame.freetype
 import pygame.font
