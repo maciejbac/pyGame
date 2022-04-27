@@ -18,10 +18,11 @@ selected_particle = None
 background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
 particle_count = 35
+random_momentum = True
 gravity_on = False
 gravity = (math.pi, 0.02)
 mass_of_air = 0.01
-elasticity = 0.9
+elasticity = 0.5
 particle_max_size = 30
 margin = 5
 
@@ -154,8 +155,14 @@ def init_random_particles():
         # particle.colour = (200 - particle_density * 10, 200 - particle_density * 10, 255)
 
         new_particle.speed = random.random()
-        new_particle.speed = 0
-        new_particle.angle = random.uniform(0, math.pi * 2)
+
+        if random_momentum == True:
+            new_particle.speed = random.randint(1, 5)
+            new_particle.angle = random.uniform(0, math.pi * 2)
+        else:
+            new_particle.speed = 0
+            new_particle.angle = random.uniform(0, math.pi * 2)
+
         my_particles.append(new_particle)
 
 
