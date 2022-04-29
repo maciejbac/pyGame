@@ -157,7 +157,7 @@ def init_random_particles():
         new_particle.speed = random.random()
 
         if random_momentum == True:
-            new_particle.speed = random.randint(1, 5)
+            new_particle.speed = random.randint(1, 3)
             new_particle.angle = random.uniform(0, math.pi * 2)
         else:
             new_particle.speed = 0
