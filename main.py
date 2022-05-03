@@ -37,7 +37,6 @@ font = pygame.font.Font(None, 20)
 # Initialize empty particle array
 my_particles = []
 
-
 class Particle:
     # Constructor function that assigns parameters to internal values of the Particle object
     def __init__(self, x, y, size, mass=1):
@@ -94,6 +93,9 @@ class Particle:
             self.angle = math.pi - self.angle
             self.speed *= elasticity
 
+
+class Player(Particle):
+    pass 
 
 # Function that adds two vectors together - used to handle gravity and collisions
 def add_vectors(angle1, length1, angle2, length2):
