@@ -192,7 +192,7 @@ def draw_game():
     pygame.draw.line(screen, (0, 0, 0), (game_width, 0), (game_width, game_height))
 
     state = ''
-    counter = 0
+    moving_particles_count = 0
 
     # Iterate through all particle objects
     for i, particle in enumerate(my_particles):
@@ -223,11 +223,11 @@ def draw_game():
             write('V = ' + str(round(math.hypot(dx, dy), 2)), (mouseX + 20, mouseY + 10))
 
         if particle.speed > 0.01:
-            counter += 1
+            moving_particles_count += 1
         else:
             particle.speed = 0
 
-        if counter == 0:
+        if moving_particles_count == 0:
             state = 'Still'
         else:
             state = 'Moving'
@@ -236,7 +236,7 @@ def draw_game():
     ball_count = len(my_particles)
     write('Ball count: ' + str(ball_count), (game_width + margin, margin))
     write('Current state: ' + state, (game_width + margin, margin * 4))
-    write('Balls moving: ' + str(counter), (game_width + margin, margin * 7))
+    write('Balls moving: ' + str(moving_particles_count), (game_width + margin, margin * 7))
 
     # Swap the frame buffer
     pygame.display.flip()
