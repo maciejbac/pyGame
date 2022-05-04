@@ -166,6 +166,8 @@ def init_random_particles():
             new_particle.angle = random.uniform(0, math.pi * 2)
 
         my_particles.append(new_particle)
+    #append player particle
+    my_particles.append(Player(0,0, 50, 1 * 20 ** 2))
 
 
 def init_test_particles():
