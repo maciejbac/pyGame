@@ -97,7 +97,8 @@ class Particle:
 class Player(Particle):
     pass 
 
-
+    def playerTestFunction():
+        return 0
 
 
 # Function that adds two vectors together - used to handle gravity and collisions
