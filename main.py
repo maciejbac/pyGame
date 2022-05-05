@@ -97,6 +97,9 @@ class Particle:
 class Player(Particle):
     pass 
 
+
+
+
 # Function that adds two vectors together - used to handle gravity and collisions
 def add_vectors(angle1, length1, angle2, length2):
     x = math.sin(angle1) * length1 + math.sin(angle2) * length2
@@ -159,7 +162,7 @@ def init_random_particles():
         new_particle.speed = random.random()
 
         if random_momentum == True:
-            new_particle.speed = random.randint(1, 3)
+            new_particle.speed = random.randint(1, 3)                                                                                                                                                   
             new_particle.angle = random.uniform(0, math.pi * 2)
         else:
             new_particle.speed = 0
