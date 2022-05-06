@@ -97,10 +97,6 @@ class Particle:
 class Player(Particle):
     pass 
 
-    def playerTestFunction():
-        return 0
-
-
 # Function that adds two vectors together - used to handle gravity and collisions
 def add_vectors(angle1, length1, angle2, length2):
     x = math.sin(angle1) * length1 + math.sin(angle2) * length2
