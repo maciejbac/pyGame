@@ -19,7 +19,7 @@ background_color = (120, 160, 250)
 pygame.display.set_caption('Ball game')
 particle_count = 35
 random_momentum = True
-gravity_on = False
+gravity_on = True
 gravity = (math.pi, 0.02)
 mass_of_air = 0.01
 elasticity = 0.5
